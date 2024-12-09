@@ -26,8 +26,17 @@ struct ContentView: View {
                         HStack {
                             VStack(alignment: .leading) {
                                 Text(habits.name)
+                                    .font(.headline)
                                 Text("\(habits.category)")
+                                    .font(.caption)
                             }
+                            
+                            Spacer()
+                            
+                            Text("Times completed: \(habits.timesCompleted)")
+                                .font(.caption)
+                            
+                            //Stepper("Times Completed", value: $habits.timesCompleted)
                         }
                         
                     }

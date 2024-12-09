@@ -16,6 +16,7 @@ struct AddHabitItemView: View {
     @State private var name = ""
     @State private var description = ""
     @State private var category: HabitCategory = .Personal
+    @State private var timesCompleted = 0
     
     //Sheet and dismissal
     @Environment(\.dismiss) var dismiss
@@ -30,6 +31,11 @@ struct AddHabitItemView: View {
                     }
                 }
                 TextField("Description", text: $description)
+                
+                Section("Times completed") {
+                    TextField("Times Completed", value: $timesCompleted, format: .number)
+                        .keyboardType(.numberPad)
+                }
             }
             .navigationTitle("Add new habit")
             .navigationBarTitleDisplayMode(.inline)
@@ -51,7 +57,7 @@ struct AddHabitItemView: View {
     }
     
     func addExpense() {
-        habitList.items.append(HabitItem(name: name, description: description, category: category))
+        habitList.items.append(HabitItem(name: name, description: description, category: category, timesCompleted: timesCompleted))
     }
 }
 

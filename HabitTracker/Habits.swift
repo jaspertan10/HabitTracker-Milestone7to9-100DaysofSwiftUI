@@ -22,6 +22,7 @@ struct HabitItem: Identifiable, Codable {
     var name: String
     var description: String
     var category: HabitCategory
+    var timesCompleted: Int = 0
 }
 
 @Observable

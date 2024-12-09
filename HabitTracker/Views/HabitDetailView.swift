@@ -26,6 +26,8 @@ struct HabitDetailView: View {
                     }
                 }
                 TextField("Description", text: $tempHabit.description)
+                
+                Stepper("Times completed: \(tempHabit.timesCompleted)", value: $tempHabit.timesCompleted)
             }
             .navigationTitle("View habit")
             .navigationBarTitleDisplayMode(.inline)
