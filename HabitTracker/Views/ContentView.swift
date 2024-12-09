@@ -33,6 +33,9 @@ struct ContentView: View {
                     }
 
                 }
+                .onDelete { indexSet in
+                    removeRows(indexSet: indexSet)
+                }
             }
             .navigationTitle("HabitTracker")
             .navigationBarTitleDisplayMode(.inline)
@@ -41,10 +44,20 @@ struct ContentView: View {
                     showSheet = true
                 }
             }
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    EditButton()
+                }
+            }
             .sheet(isPresented: $showSheet) {
                 AddHabitItemView(habitList: habits)
             }
         }
+    }
+    
+    
+    func removeRows(indexSet: IndexSet) {
+        habits.items.remove(atOffsets: indexSet)
     }
 }
 

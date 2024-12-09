@@ -8,14 +8,14 @@
 import Foundation
 
 
-enum HabitCategory: String, CaseIterable {
+enum HabitCategory: String, CaseIterable, Codable {
     case Health = "Health"
     case Productivity = "Productivity"
     case Learning = "Learning"
     case Personal = "Personal"
 }
 
-struct HabitItem: Identifiable {
+struct HabitItem: Identifiable, Codable {
     
     var id = UUID()
     
@@ -26,9 +26,23 @@ struct HabitItem: Identifiable {
 
 @Observable
 class Habits {
-    var items: [HabitItem]
+    var items: [HabitItem] {
+        didSet {
+            if let encoded = try? JSONEncoder().encode(items) {
+                UserDefaults.standard.set(encoded, forKey: "Items")
+            }
+        }
+    }
     
     init() {
+        if let savedItems = UserDefaults.standard.data(forKey: "Items") {
+            if let decodedItems = try? JSONDecoder().decode([HabitItem].self, from: savedItems) {
+                items = decodedItems
+                
+                return
+            }
+        }
+        
         items = []
     }
 }
